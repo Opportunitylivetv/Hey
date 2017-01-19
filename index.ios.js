@@ -1,6 +1,5 @@
 /**
  * Sample React Native App
- * https://github.com/facebook/react-native
  * @flow
  */
 
@@ -9,23 +8,52 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView,
+  Dimensions,
+  Image,
 } from 'react-native';
+const Stickers = require('./Stickers');
+
+class StickerPage extends Component {
+  render() {
+    return (
+      <View style={styles.stickerPage}>
+        {Stickers.getAll().map(sticker =>
+          <Image
+            source={sticker.getImage()}
+            key={sticker.getName()}
+            style={styles.sticker}
+          />
+        )}
+        {Stickers.getAll().map(sticker =>
+          <Image
+            source={sticker.getImage()}
+            key={sticker.getName() +'2'}
+            style={styles.sticker}
+          />
+        )}
+      </View>
+    );
+  }
+}
 
 export default class Hey extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Hey
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit index.ios.js
+          Sup?
         </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        <ScrollView
+          style={styles.stickerChooser}
+          horizontal={true}>
+          <StickerPage />
+          <StickerPage />
+        </ScrollView>
       </View>
     );
   }
@@ -33,6 +61,7 @@ export default class Hey extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 20,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -42,11 +71,28 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    flex: 1,
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  stickerChooser: {
+    backgroundColor: '#e9ebee',
+    height: 200,
+  },
+  stickerPage: {
+    width: Dimensions.get('window').width,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 20,
+  },
+  sticker: {
+    height: 100,
+    width: 100,
   },
 });
 
