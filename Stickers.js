@@ -69,6 +69,8 @@ class Sticker {
 
 }
 
+export type StickerInstance = Sticker;
+
 let _cache = null;
 class Stickers {
   static getAll(): Array<Sticker> {
