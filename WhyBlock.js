@@ -17,8 +17,11 @@ import {
 
 const Colors = require('./Colors');
 
+const MIN_INPUT_HEIGHT = 40;
+
 type State = {
   text: string,
+  textHeight: number,
 };
 type Props = {
   onCompose: Function,
@@ -33,6 +36,7 @@ class WhyBlock extends Component<void, Props, State> {
     super();
     this.state = {
       text: '',
+      textHeight: MIN_INPUT_HEIGHT,
     };
   }
 
@@ -46,14 +50,20 @@ class WhyBlock extends Component<void, Props, State> {
         </View>
         <View style={styles.row}>
           <TextInput
-            style={styles.textBox}
+            style={[styles.textBox, {height: this.state.textHeight}]}
             underlineColorAndroid="transparent"
             maxLength={300}
             value={this.state.text}
+            multiline={true}
             onChangeText={(val) => this.setState({text: val})}
-            selectTextOnFocus={true}
             placeholder="Enter your feelz"
             placeholderTextColor="#0066cc"
+            onContentSizeChange={ev => this.setState({
+              textHeight: Math.max(
+                MIN_INPUT_HEIGHT,
+                ev.nativeEvent.contentSize.height,
+              ),
+            })}
           />
         </View>
         <View style={styles.row}>
@@ -96,8 +106,9 @@ const styles = StyleSheet.create({
     borderColor: Colors.composeDark,
     marginVertical: 12,
     flex: 1,
-    minHeight: 40,
+    minHeight: MIN_INPUT_HEIGHT,
     padding: 8,
+    fontSize: 20,
   },
   button: {
     backgroundColor: Colors.composeDark,
