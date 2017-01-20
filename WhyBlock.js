@@ -11,6 +11,8 @@ import {
   ScrollView,
   Dimensions,
   Image,
+  TextInput,
+  TouchableOpacity,
 } from 'react-native';
 
 const Colors = require('./Colors');
@@ -19,11 +21,13 @@ type State = {
   text: string,
 };
 type Props = {
+  onCompose: Function,
 };
 
 class WhyBlock extends Component<void, Props, State> {
 
   state: State;
+  props: Props;
 
   constructor() {
     super();
@@ -41,15 +45,27 @@ class WhyBlock extends Component<void, Props, State> {
           </Text>
         </View>
         <View style={styles.row}>
-          <View style={styles.textBox}>
-          </View>
+          <TextInput
+            style={styles.textBox}
+            underlineColorAndroid="transparent"
+            maxLength={300}
+            value={this.state.text}
+            onChangeText={(val) => this.setState({text: val})}
+            selectTextOnFocus={true}
+            placeholder="Enter your feelz"
+            placeholderTextColor="#0066cc"
+          />
         </View>
         <View style={styles.row}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>
-              bbl
-            </Text>
-          </View>
+          <TouchableOpacity
+            style={styles.buttonTouch}
+            onPress={() => this.props.onCompose(this.state.text)}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>
+                bbl
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -79,8 +95,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: Colors.composeDark,
     marginVertical: 12,
-    height: 40,
     flex: 1,
+    minHeight: 40,
+    padding: 8,
   },
   button: {
     backgroundColor: Colors.composeDark,
@@ -89,6 +106,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 12,
+  },
+  buttonTouch: {
+    flex: 1,
+    flexDirection: 'row',
   },
   buttonText: {
     lineHeight: 40,

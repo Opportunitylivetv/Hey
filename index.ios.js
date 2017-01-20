@@ -27,7 +27,7 @@ export default class Hey extends Component {
         <Text style={styles.instructions}>
           Sup?
         </Text>
-        <WhyBlock />
+        <WhyBlock onCompose={(why) => alert(why)} />
         <StickerPicker
           onStickerPress={(name) => alert(name)}
         />
