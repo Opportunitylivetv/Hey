@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 
 const StickerPicker = require('./StickerPicker');
+const WhyBlock = require('./WhyBlock');
 
 export default class Hey extends Component {
   render() {
@@ -26,6 +27,7 @@ export default class Hey extends Component {
         <Text style={styles.instructions}>
           Sup?
         </Text>
+        <WhyBlock />
         <StickerPicker
           onStickerPress={(name) => alert(name)}
         />
