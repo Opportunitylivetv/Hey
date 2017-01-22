@@ -3,10 +3,8 @@
  */
 
 const assign = require('object-assign');
-const Dispatcher = require('./Dispatcher');
-const EventEmitter = require('events').EventEmitter;
-
 const Actions = require('./Actions');
+const Dispatcher = require('./Dispatcher');
 
 const CHANGE_EVENT = 'change';
 
@@ -16,7 +14,6 @@ const CHANGE_EVENT = 'change';
  */
 var FeelStore = assign(
 {},
-EventEmitter.prototype,
 {
   subscribe: function(cb) {
     this.on(CHANGE_EVENT, cb);

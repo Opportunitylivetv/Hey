@@ -2,6 +2,8 @@
  * @flow
  */
 
-var Dispatcher = require('flux').Dispatcher;
+import {
+  Dispatcher,
+} from 'react-native';
 
-module.exports = new Dispatcher();
+module.exports = Dispatcher;

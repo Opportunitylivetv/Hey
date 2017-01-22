@@ -1,5 +1,5 @@
 /**
- * Sample React Native App
+ * Journal those feels!
  * @flow
  */
 
@@ -15,10 +15,13 @@ import {
   LayoutAnimation,
 } from 'react-native';
 
+const Actions = require('./Actions');
+const Dispatcher = require('./Dispatcher');
 const StickerPicker = require('./StickerPicker');
 const WhyBlock = require('./WhyBlock');
 const ComposerHeader = require('./ComposerHeader');
 const Stickers = require('./Stickers');
+const FeelStore = require('./FeelStore');
 
 import type {Sticker} from './Stickers';
 
@@ -44,7 +47,15 @@ export default class Hey extends Component<void, Props, State> {
       <View style={styles.container}>
         <ComposerHeader currentSticker={this.state.currentSticker} />
         {this.state.currentSticker && (
-          <WhyBlock onCompose={(why) => alert(why)} />
+          <WhyBlock
+            onCompose={(whyText) => {
+              Dispatcher.dispatch({
+                type: Actions.ADD_FEEL,
+                text: whyText,
+                sticker: this.state.currentSticker,
+              });
+            }}
+          />
         )}
         <StickerPicker
           opened={this.state.currentSticker === null}
