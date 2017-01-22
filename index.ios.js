@@ -21,6 +21,7 @@ const WhyBlock = require('./WhyBlock');
 const ComposerHeader = require('./ComposerHeader');
 const Stickers = require('./Stickers');
 const Store = require('./Store');
+const PreviousFeels = require('./PreviousFeels');
 
 import type {Sticker} from './Stickers';
 
@@ -49,6 +50,7 @@ export default class Hey extends Component<void, Props, State> {
     return (
       <View style={styles.container}>
         <ComposerHeader currentSticker={this.state.currentSticker} />
+        <PreviousFeels />
         {this.state.currentSticker && (
           <WhyBlock
             onCompose={(whyText) => {
@@ -57,6 +59,11 @@ export default class Hey extends Component<void, Props, State> {
                 text: whyText,
                 sticker: this.state.currentSticker,
               });
+              this.setState({
+                currentSticker: null,
+              });
+              // This casues issues for some reason..
+              // LayoutAnimation.easeInEaseOut();
             }}
           />
         )}

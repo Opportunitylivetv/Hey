@@ -12,6 +12,10 @@ class Feel {
     this.text = text;
     this.stickerName = stickerName;
   }
+
+  getKey(): string {
+    return this.stickerName + this.text + this.time;
+  }
 }
 
 module.exports = Feel;
