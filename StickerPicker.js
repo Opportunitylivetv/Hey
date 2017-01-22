@@ -42,6 +42,7 @@ class StickerRow extends Component<void, RowProps, void> {
 
 type PickerProps = {
   onStickerPress: Function,
+  opened: boolean,
 };
 
 class StickerPicker extends Component<void, PickerProps, void> {
@@ -58,7 +59,10 @@ class StickerPicker extends Component<void, PickerProps, void> {
     });
 
     return (
-      <View style={styles.container}>
+      <View style={[
+          styles.container,
+          this.props.opened ? null : styles.closed
+        ]}>
         <ScrollView
           style={styles.stickerChooser}
           horizontal={true}>
@@ -81,6 +85,12 @@ class StickerPicker extends Component<void, PickerProps, void> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  closed: {
+    flex: 0,
+    position: 'absolute',
+    bottom: 0,
+    height: 10,
   },
   stickerChooser: {
     backgroundColor: '#e9ebee',

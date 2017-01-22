@@ -20,7 +20,7 @@ const FeelSticker = require('./FeelSticker');
 import type { Sticker } from './Stickers';
 
 type Props = {
-  currentSticker?: Sticker,
+  currentSticker: ?Sticker,
 };
 
 class ComposerHeader extends Component<void, Props, void> {
@@ -33,12 +33,32 @@ class ComposerHeader extends Component<void, Props, void> {
       return <FeelSticker sticker={sticker} />;
     }
     return (
-      <View />
+      <View style={styles.emptyCircle}>
+        <Text style={styles.sup}>
+          sup?
+        </Text>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  sup: {
+    fontSize: 20,
+    color: Colors.whyDark,
+    fontWeight: 'bold',
+  },
+  emptyCircle: {
+    borderRadius: Sizes.HEADER_CIRCLE / 2,
+    height: Sizes.HEADER_CIRCLE,
+    width: Sizes.HEADER_CIRCLE,
+    borderColor: Colors.headerBorder,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    marginBottom: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 module.exports = ComposerHeader;
