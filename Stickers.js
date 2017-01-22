@@ -54,7 +54,7 @@ class Sticker {
   name: string;
   image: any;
 
-  constructor(name, image) {
+  constructor(name: string, image: any) {
     this.name = name;
     this.image = image;
   }
@@ -69,18 +69,32 @@ class Sticker {
 
 }
 
-export type StickerInstance = Sticker;
+export type {Sticker};
 
-let _cache = null;
+let _allCache = null;
+let _nameCache = {};
+
 class Stickers {
+
   static getAll(): Array<Sticker> {
-    if (!_cache) {
-      _cache = Object.keys(MAPPING).map(
+    if (!_allCache) {
+      _allCache = Object.keys(MAPPING).map(
         stickerName => new Sticker(stickerName, MAPPING[stickerName]),
       );
     }
-    return _cache;
+    return _allCache;
   }
+
+  static getForName(name: string): Sticker {
+    if (!MAPPING[name]) {
+      throw new Error(name + ' is an invalid name');
+    }
+    if (!_nameCache[name]) {
+      _nameCache[name] = new Sticker(name, MAPPING[name]);
+    }
+    return _nameCache[name];
+  }
+
 }
 
 module.exports = Stickers;

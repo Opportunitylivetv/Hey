@@ -57,7 +57,7 @@ class WhyBlock extends Component<void, Props, State> {
             multiline={true}
             onChangeText={(val) => this.setState({text: val})}
             placeholder="Enter your feelz"
-            placeholderTextColor="#0066cc"
+            placeholderTextColor={Colors.whyDark}
             onContentSizeChange={ev => this.setState({
               textHeight: Math.max(
                 MIN_INPUT_HEIGHT,

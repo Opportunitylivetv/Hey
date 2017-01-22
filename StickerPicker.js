@@ -11,10 +11,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 const Stickers = require('./Stickers');
-import StickerInstance from './Stickers';
+import type { Sticker } from './Stickers';
 
 type RowProps = {
-  stickers: Array<Object>,
+  stickers: Array<Sticker>,
   onStickerPress: Function,
 };
 
@@ -58,28 +58,32 @@ class StickerPicker extends Component<void, PickerProps, void> {
     });
 
     return (
-      <ScrollView
-        style={styles.stickerChooser}
-        horizontal={true}>
-        <View style={styles.rowContainer}>
-          <StickerRow
-            onStickerPress={this.props.onStickerPress}
-            stickers={row1}
-          />
-          <StickerRow
-            onStickerPress={this.props.onStickerPress}
-            stickers={row2}
-          />
-        </View>
-      </ScrollView>
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.stickerChooser}
+          horizontal={true}>
+          <View style={styles.rowContainer}>
+            <StickerRow
+              onStickerPress={this.props.onStickerPress}
+              stickers={row1}
+            />
+            <StickerRow
+              onStickerPress={this.props.onStickerPress}
+              stickers={row2}
+            />
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   stickerChooser: {
     backgroundColor: '#e9ebee',
-    height: 200,
   },
   stickerPage: {
     flexDirection: 'row',

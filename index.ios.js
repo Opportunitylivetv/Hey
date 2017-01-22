@@ -16,17 +16,19 @@ import {
 
 const StickerPicker = require('./StickerPicker');
 const WhyBlock = require('./WhyBlock');
+const ComposerHeader = require('./ComposerHeader');
+const Stickers = require('./Stickers');
 
 export default class Hey extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Hey
-        </Text>
         <Text style={styles.instructions}>
           Sup?
         </Text>
+        <ComposerHeader
+          currentSticker={Stickers.getForName('scary')}
+        />
         <WhyBlock onCompose={(why) => alert(why)} />
         <StickerPicker
           onStickerPress={(name) => alert(name)}
@@ -39,10 +41,10 @@ export default class Hey extends Component {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    flex: 1,
   },
   welcome: {
     fontSize: 20,
