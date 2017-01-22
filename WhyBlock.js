@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     minHeight: MIN_INPUT_HEIGHT,
     padding: 8,
     fontSize: 20,
+    color: Colors.whyDark,
   },
   button: {
     backgroundColor: Colors.composeDark,
