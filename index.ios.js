@@ -20,6 +20,7 @@ const StickerPicker = require('./StickerPicker');
 const WhyBlock = require('./WhyBlock');
 const ComposerHeader = require('./ComposerHeader');
 const Stickers = require('./Stickers');
+const Store = require('./Store');
 
 import type {Sticker} from './Stickers';
 
@@ -40,6 +41,10 @@ export default class Hey extends Component<void, Props, State> {
     };
   }
 
+  componentDidMount() {
+    Store.subscribe(() => this.forceUpdate());
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -47,12 +52,11 @@ export default class Hey extends Component<void, Props, State> {
         {this.state.currentSticker && (
           <WhyBlock
             onCompose={(whyText) => {
-              /*
-              Dispatcher.dispatch({
+              Store.dispatch({
                 type: Actions.ADD_FEEL,
                 text: whyText,
                 sticker: this.state.currentSticker,
-              });*/
+              });
             }}
           />
         )}
