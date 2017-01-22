@@ -18,7 +18,7 @@ import {
 const Actions = require('./Actions');
 const StickerPicker = require('./StickerPicker');
 const WhyBlock = require('./WhyBlock');
-const ComposerHeader = require('./ComposerHeader');
+const ComposerRow = require('./ComposerRow');
 const Stickers = require('./Stickers');
 const Store = require('./Store');
 const PreviousFeels = require('./PreviousFeels');
@@ -35,6 +35,8 @@ export default class Hey extends Component<void, Props, State> {
   props: Props;
   state: State;
 
+  _composer: any;
+
   constructor() {
     super();
     this.state = {
@@ -44,13 +46,31 @@ export default class Hey extends Component<void, Props, State> {
 
   componentDidMount() {
     Store.subscribe(() => this.forceUpdate());
+    // TODO
+              Store.dispatch({
+                type: Actions.ADD_FEEL,
+                text: 'foo1',
+                sticker: Stickers.getForName('scary'),
+              });
+              Store.dispatch({
+                type: Actions.ADD_FEEL,
+                text: 'foo2',
+                sticker: Stickers.getForName('scary'),
+              });
+              Store.dispatch({
+                type: Actions.ADD_FEEL,
+                text: 'foo2',
+                sticker: Stickers.getForName('kiss'),
+              });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <ComposerHeader currentSticker={this.state.currentSticker} />
-        <PreviousFeels />
+        <ComposerRow
+          currentSticker={this.state.currentSticker}
+          ref={this.setComposerRef}
+        />
         {this.state.currentSticker && (
           <WhyBlock
             onCompose={(whyText) => {
@@ -59,9 +79,11 @@ export default class Hey extends Component<void, Props, State> {
                 text: whyText,
                 sticker: this.state.currentSticker,
               });
-              this.setState({
-                currentSticker: null,
-              });
+              this.setState({currentSticker: null});
+              setTimeout(
+                () => this._composer.resetScroll(),
+                100,
+              );
               // This casues issues for some reason..
               // LayoutAnimation.easeInEaseOut();
             }}
@@ -73,12 +95,19 @@ export default class Hey extends Component<void, Props, State> {
             this.setState({
               currentSticker: Stickers.getForName(name),
             });
+            this._composer.resetScroll();
             LayoutAnimation.easeInEaseOut();
           }}
         />
       </View>
     );
   }
+
+  setComposerRef = (composer: Object) => {
+    this._composer = composer;
+    this._composer.resetScroll();
+  };
+
 }
 
 const styles = StyleSheet.create({
