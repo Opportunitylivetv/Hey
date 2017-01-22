@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sticker: {
-    height: Sizes.HEADER_CIRCLE - 30,
-    width: Sizes.HEADER_CIRCLE - 30,
+    height: Sizes.HEADER_CIRCLE - 40,
+    width: Sizes.HEADER_CIRCLE - 40,
   },
   circle: {
     borderRadius: Sizes.HEADER_CIRCLE / 2,
