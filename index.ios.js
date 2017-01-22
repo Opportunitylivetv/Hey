@@ -16,12 +16,10 @@ import {
 } from 'react-native';
 
 const Actions = require('./Actions');
-const Dispatcher = require('./Dispatcher');
 const StickerPicker = require('./StickerPicker');
 const WhyBlock = require('./WhyBlock');
 const ComposerHeader = require('./ComposerHeader');
 const Stickers = require('./Stickers');
-const FeelStore = require('./FeelStore');
 
 import type {Sticker} from './Stickers';
 
@@ -49,11 +47,12 @@ export default class Hey extends Component<void, Props, State> {
         {this.state.currentSticker && (
           <WhyBlock
             onCompose={(whyText) => {
+              /*
               Dispatcher.dispatch({
                 type: Actions.ADD_FEEL,
                 text: whyText,
                 sticker: this.state.currentSticker,
-              });
+              });*/
             }}
           />
         )}
