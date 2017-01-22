@@ -30,10 +30,14 @@ class ComposerHeader extends Component<void, Props, void> {
   render() {
     const sticker = this.props.currentSticker;
     if (sticker) {
-      return <FeelSticker sticker={sticker} />;
+      return (
+        <View style={styles.container}>
+          <FeelSticker sticker={sticker} />
+        </View>
+      );
     }
     return (
-      <View style={styles.emptyCircle}>
+      <View style={[styles.emptyCircle, styles.container]}>
         <Text style={styles.sup}>
           sup?
         </Text>
@@ -55,9 +59,11 @@ const styles = StyleSheet.create({
     borderColor: Colors.headerBorder,
     borderWidth: 1,
     borderStyle: 'dashed',
-    marginBottom: 60,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  container: {
+    marginVertical: 60,
   },
 });
 

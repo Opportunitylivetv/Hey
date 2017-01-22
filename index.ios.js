@@ -42,9 +42,6 @@ export default class Hey extends Component<void, Props, State> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.instructions}>
-          Sup?
-        </Text>
         <ComposerHeader currentSticker={this.state.currentSticker} />
         {this.state.currentSticker && (
           <WhyBlock onCompose={(why) => alert(why)} />
@@ -66,7 +63,6 @@ export default class Hey extends Component<void, Props, State> {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
     flex: 1,
@@ -76,11 +72,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
     flex: 1,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
   },
 });
 
