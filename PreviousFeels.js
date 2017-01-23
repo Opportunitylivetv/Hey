@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 const FeelSticker = require('./FeelSticker');
+const Feel = require('./Feel');
 const Stickers = require('./Stickers');
 const Store = require('./Store');
 const Sizes = require('./Sizes');
@@ -32,13 +33,16 @@ class PreviousFeels extends Component {
     }
     return (
       <View style={styles.container}>
-        {state.feels.map(feel =>
-          <View style={styles.feelContainer} key={feel.getKey()}>
-            <FeelSticker
-              sticker={Stickers.getForName(feel.stickerName)}
-            />
-          </View>
-        )}
+        {state.feels.map(feelObj => {
+          const feel = Feel.fromObj(feelObj);
+          return (
+            <View style={styles.feelContainer} key={feel.getKey()}>
+              <FeelSticker
+                sticker={Stickers.getForName(feel.stickerName)}
+              />
+            </View>
+          );
+        })}
       </View>
     );
   }

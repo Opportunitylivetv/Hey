@@ -13,6 +13,10 @@ class Feel {
     this.stickerName = stickerName;
   }
 
+  static fromObj(saved: Object): Feel {
+    return new Feel(saved.time, saved.text, saved.stickerName);
+  }
+
   getKey(): string {
     return this.stickerName + this.text + this.time;
   }

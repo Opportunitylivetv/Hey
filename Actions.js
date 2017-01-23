@@ -4,6 +4,7 @@
 
 const ACTIONS = {
   ADD_FEEL: 'ADD_FEEL',
+  LOAD_STATE: 'LOAD_STATE',
 };
 
 for (var key in ACTIONS) {

@@ -12,16 +12,16 @@ type State = {
 module.exports = (state: State, action: Object) => {
   state = state || {feels: []};
   switch (action.type) {
+    case Actions.LOAD_STATE:
+      return action.state;
     case Actions.ADD_FEEL:
       return {
         ...state,
-        feels: state.feels.concat([
-          new Feel(
-            Date.now(),
-            action.text,
-            action.sticker.getName(),
-          ),
-        ]),
+        feels: state.feels.concat([{
+          time: Date.now(),
+          text: action.text,
+          stickerName: action.sticker.getName(),
+        }]),
       };
   }
 };

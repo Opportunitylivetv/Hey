@@ -22,6 +22,7 @@ const ComposerRow = require('./ComposerRow');
 const Stickers = require('./Stickers');
 const Store = require('./Store');
 const PreviousFeels = require('./PreviousFeels');
+const StateStorage = require('./StateStorage');
 
 import type {Sticker} from './Stickers';
 
@@ -47,23 +48,13 @@ export default class Hey extends Component<void, Props, State> {
   }
 
   componentDidMount() {
-    Store.subscribe(() => this.forceUpdate());
-    // TODO
-              Store.dispatch({
-                type: Actions.ADD_FEEL,
-                text: 'foo1',
-                sticker: Stickers.getForName('scary'),
-              });
-              Store.dispatch({
-                type: Actions.ADD_FEEL,
-                text: 'foo2',
-                sticker: Stickers.getForName('scary'),
-              });
-              Store.dispatch({
-                type: Actions.ADD_FEEL,
-                text: 'foo2',
-                sticker: Stickers.getForName('kiss'),
-              });
+    Store.subscribe(() => {
+      this.forceUpdate();
+      StateStorage.saveState();
+    });
+    StateStorage.loadState(() => {
+      this._composer.resetScroll();
+    });
   }
 
   render() {
