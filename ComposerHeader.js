@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginVertical: 60,
+    marginRight: Dimensions.get('window').width / 4 - Sizes.HEADER_CIRCLE / 2,
   },
 });
 

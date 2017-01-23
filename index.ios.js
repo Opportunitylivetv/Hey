@@ -96,7 +96,7 @@ export default class Hey extends Component<void, Props, State> {
               currentSticker: Stickers.getForName(name),
             });
             this._composer.resetScroll();
-            LayoutAnimation.easeInEaseOut();
+            //LayoutAnimation.easeInEaseOut();
           }}
         />
       </View>
