@@ -28,6 +28,7 @@ import type {Sticker} from './Stickers';
 type Props = {};
 type State = {
   currentSticker: ?Sticker,
+  viewingPrevious: boolean,
 };
 
 export default class Hey extends Component<void, Props, State> {
@@ -41,6 +42,7 @@ export default class Hey extends Component<void, Props, State> {
     super();
     this.state = {
       currentSticker: null,
+      viewingPrevious: false,
     };
   }
 
@@ -70,6 +72,7 @@ export default class Hey extends Component<void, Props, State> {
         <ComposerRow
           currentSticker={this.state.currentSticker}
           ref={this.setComposerRef}
+          onPageChange={this.onComposePageChange}
         />
         {this.state.currentSticker && (
           <WhyBlock
@@ -84,24 +87,36 @@ export default class Hey extends Component<void, Props, State> {
                 () => this._composer.resetScroll(),
                 100,
               );
-              // This casues issues for some reason..
-              // LayoutAnimation.easeInEaseOut();
             }}
           />
         )}
         <StickerPicker
-          opened={this.state.currentSticker === null}
+          opened={
+            this.state.currentSticker === null &&
+            !this.state.viewingPrevious
+          }
           onStickerPress={(name) => {
             this.setState({
               currentSticker: Stickers.getForName(name),
             });
             this._composer.resetScroll();
-            //LayoutAnimation.easeInEaseOut();
+            LayoutAnimation.easeInEaseOut();
           }}
         />
       </View>
     );
   }
+
+  onComposePageChange = (currentPage: number, numPages: number) => {
+    const viewingPrevious = currentPage !== numPages;
+    if (viewingPrevious === this.state.viewingPrevious) {
+      return;
+    }
+    this.setState({
+      viewingPrevious: currentPage !== numPages,
+    });
+    LayoutAnimation.easeInEaseOut();
+  };
 
   setComposerRef = (composer: Object) => {
     this._composer = composer;

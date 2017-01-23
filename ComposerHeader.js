@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: Colors.whyDark,
     fontWeight: 'bold',
+    backgroundColor: 'transparent',
   },
   emptyCircle: {
     borderRadius: Sizes.HEADER_CIRCLE / 2,
@@ -62,7 +63,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   container: {
-    marginVertical: 60,
     marginRight: Dimensions.get('window').width / 4 - Sizes.HEADER_CIRCLE / 2,
   },
 });
