@@ -58,7 +58,7 @@ class ComposerRow extends Component<void, Props, void> {
     const nativeEvent = event.nativeEvent;
     const scrollWidth = nativeEvent.layoutMeasurement.width;
     const innerScrollWidth = nativeEvent.contentSize.width;
-    const horizontalPages = Math.floor(innerScrollWidth / scrollWidth) - 1;
+    const horizontalPages = Math.floor(innerScrollWidth / scrollWidth);
     const page = Math.min(
       Math.max(
         Math.floor(nativeEvent.contentOffset.x / scrollWidth + 0.5),
@@ -107,13 +107,13 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width / 2,
     overflow: 'visible',
     maxHeight: SIZE,
+    height: SIZE,
+    marginBottom: -100,
   },
   contentContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
     flexDirection: 'row',
-    paddingVertical: 40,
     height: SIZE,
+    maxHeight: SIZE,
   },
 });
 

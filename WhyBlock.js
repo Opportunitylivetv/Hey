@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
     padding: 20,
-    justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
   },

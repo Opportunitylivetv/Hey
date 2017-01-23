@@ -23,13 +23,16 @@ const Stickers = require('./Stickers');
 const Store = require('./Store');
 const PreviousFeels = require('./PreviousFeels');
 const StateStorage = require('./StateStorage');
+const FeelDetails = require('./FeelDetails');
+const FeelBody = require('./FeelBody');
 
 import type {Sticker} from './Stickers';
+import Feel from './Feel';
 
 type Props = {};
 type State = {
   currentSticker: ?Sticker,
-  viewingPrevious: boolean,
+  previousFeel: ?Feel,
 };
 
 export default class Hey extends Component<void, Props, State> {
@@ -43,7 +46,7 @@ export default class Hey extends Component<void, Props, State> {
     super();
     this.state = {
       currentSticker: null,
-      viewingPrevious: false,
+      previousFeel: null,
     };
   }
 
@@ -60,11 +63,13 @@ export default class Hey extends Component<void, Props, State> {
   render() {
     return (
       <View style={styles.container}>
+        <FeelDetails feel={this.state.previousFeel} />
         <ComposerRow
           currentSticker={this.state.currentSticker}
           ref={this.setComposerRef}
           onPageChange={this.onComposePageChange}
         />
+        <FeelBody feel={this.state.previousFeel} />
         {this.state.currentSticker && (
           <WhyBlock
             onCompose={(whyText) => {
@@ -84,7 +89,7 @@ export default class Hey extends Component<void, Props, State> {
         <StickerPicker
           opened={
             this.state.currentSticker === null &&
-            !this.state.viewingPrevious
+            this.state.previousFeel === null
           }
           onStickerPress={(name) => {
             this.setState({
@@ -99,14 +104,18 @@ export default class Hey extends Component<void, Props, State> {
   }
 
   onComposePageChange = (currentPage: number, numPages: number) => {
-    const viewingPrevious = currentPage !== numPages;
-    if (viewingPrevious === this.state.viewingPrevious) {
+    const viewingCompose = currentPage === numPages - 1;
+    if (viewingCompose) {
+      this.setState({previousFeel: null});
       return;
     }
+    const shouldAnimate = this.state.previousFeel === null;
     this.setState({
-      viewingPrevious: currentPage !== numPages,
+      previousFeel: Feel.fromObj(Store.getState().feels[currentPage]),
     });
-    LayoutAnimation.easeInEaseOut();
+    if (shouldAnimate) {
+      LayoutAnimation.easeInEaseOut();
+    }
   };
 
   setComposerRef = (composer: Object) => {

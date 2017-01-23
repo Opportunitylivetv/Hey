@@ -9,4 +9,5 @@ import {
 module.exports = {
   HEADER_CIRCLE: 120,
   FEEL_SPACING: Dimensions.get('window').width / 2,
+  DETAILS_HEIGHT: 80,
 };
