@@ -40,8 +40,8 @@ class ComposerRow extends Component<void, Props, void> {
         contentContainerStyle={styles.contentContainer}
         ref={this.setScrollRef}
         showsHorizontalScrollIndicator={false}
+        pagingEnabled={true}
         scrollEventThrottle={16}
-        snapToInterval={10}
         onMomentumScrollEnd={this.handleScroll}
         horizontal={true}>
         <View

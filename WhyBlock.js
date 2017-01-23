@@ -13,6 +13,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 const Colors = require('./Colors');
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     flex: 1,
+    marginTop: -100,
   },
   row: {
     flexDirection: 'row',
