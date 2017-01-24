@@ -107,6 +107,7 @@ export default class Hey extends Component<void, Props, State> {
     const viewingCompose = currentPage === numPages - 1;
     if (viewingCompose) {
       this.setState({previousFeel: null});
+      LayoutAnimation.easeInEaseOut();
       return;
     }
     const shouldAnimate = this.state.previousFeel === null;
