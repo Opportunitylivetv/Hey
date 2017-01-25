@@ -68,9 +68,13 @@ export default class Hey extends Component<void, Props, State> {
           currentSticker={this.state.currentSticker}
           ref={this.setComposerRef}
           onPageChange={this.onComposePageChange}
+          onComposeStickerTap={() => {
+            this.setState({currentSticker: null});
+            LayoutAnimation.easeInEaseOut();
+          }}
         />
         <FeelBody feel={this.state.previousFeel} />
-        {this.state.currentSticker && (
+        {this.state.currentSticker && this.state.previousFeel === null && (
           <WhyBlock
             onCompose={(whyText) => {
               Store.dispatch({
@@ -104,12 +108,13 @@ export default class Hey extends Component<void, Props, State> {
   }
 
   onComposePageChange = (currentPage: number, numPages: number) => {
-    const viewingCompose = currentPage === numPages - 1;
+    const viewingCompose = currentPage >= numPages - 1;
     if (viewingCompose) {
       this.setState({previousFeel: null});
       LayoutAnimation.easeInEaseOut();
       return;
     }
+    
     const shouldAnimate = this.state.previousFeel === null;
     this.setState({
       previousFeel: Feel.fromObj(Store.getState().feels[currentPage]),

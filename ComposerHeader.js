@@ -10,6 +10,7 @@ import {
   ScrollView,
   Dimensions,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 
 const Colors = require('./Colors');
@@ -20,6 +21,7 @@ import type { Sticker } from './Stickers';
 
 type Props = {
   currentSticker: ?Sticker,
+  onComposeStickerTap: Function,
 };
 
 class ComposerHeader extends Component<void, Props, void> {
@@ -30,9 +32,11 @@ class ComposerHeader extends Component<void, Props, void> {
     const sticker = this.props.currentSticker;
     if (sticker) {
       return (
-        <View style={styles.container}>
-          <FeelSticker sticker={sticker} />
-        </View>
+        <TouchableOpacity onPress={this.props.onComposeStickerTap}>
+          <View style={styles.container}>
+            <FeelSticker sticker={sticker} />
+          </View>
+        </TouchableOpacity>
       );
     }
     return (

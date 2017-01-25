@@ -9,17 +9,20 @@ import {
   View,
   ScrollView,
   Dimensions,
+  UIManager,
 } from 'react-native';
 
 const Sizes = require('./Sizes');
 const ComposerHeader = require('./ComposerHeader');
 const PreviousFeels = require('./PreviousFeels');
+const Store = require('./Store');
 
 import type { Sticker } from './Stickers';
 
 type Props = {
   currentSticker: ?Sticker,
   onPageChange: Function,
+  onComposeStickerTap: Function,
 };
 
 const SIZE = 300;
@@ -31,6 +34,7 @@ class ComposerRow extends Component<void, Props, void> {
   _scroll: any;
   _scrollWidth: number;
   _page: number;
+  _totalPages: number;
   _pendingReset: boolean;
 
   render() {
@@ -48,10 +52,34 @@ class ComposerRow extends Component<void, Props, void> {
           onLayout={this.onContentLayout}
           style={styles.contentContainer}>
           <PreviousFeels />
-          <ComposerHeader currentSticker={this.props.currentSticker} />
+          <ComposerHeader
+            currentSticker={this.props.currentSticker}
+            onComposeStickerTap={this.props.onComposeStickerTap}
+          />
         </View>
       </ScrollView>
     );
+  }
+
+  componentDidMount() {
+    Store.subscribe(() => {
+      if (!this._scroll) {
+        return;
+      }
+      if (this._page === undefined) {
+        // has not been evaluated yet
+        return;
+      }
+      const newNumPages = Store.getState().feels.length + 1;
+      // Lets handle the case where we deleted a feel and we are at the end
+      if (this._totalPages <= newNumPages) {
+        return;
+      }
+
+      this._totalPages = newNumPages;
+      this._page = Math.min(this._page, this._totalPages - 1);
+      this.props.onPageChange(this._page, this._totalPages);
+    });
   }
 
   handleScroll = (event: Object) => {
@@ -71,6 +99,7 @@ class ComposerRow extends Component<void, Props, void> {
       this._page = horizontalPages;
       return;
     }
+    this._totalPages = horizontalPages;
     if (this._page !== page) {
       this._page = page;
       this.props.onPageChange(page, horizontalPages);

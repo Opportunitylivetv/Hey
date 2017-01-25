@@ -9,6 +9,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 const Stickers = require('./Stickers');
 import type { Sticker } from './Stickers';
@@ -64,8 +65,8 @@ class StickerPicker extends Component<void, PickerProps, void> {
           this.props.opened ? null : styles.closed
         ]}>
         <ScrollView
-          style={styles.stickerChooser}
-          horizontal={true}>
+          contentContainerStyle={{alignItems: 'center'}}
+          style={styles.stickerChooser}>
           <View style={styles.rowContainer}>
             <StickerRow
               onStickerPress={this.props.onStickerPress}
@@ -85,6 +86,7 @@ class StickerPicker extends Component<void, PickerProps, void> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
   },
   closed: {
     flex: 0,
@@ -94,19 +96,20 @@ const styles = StyleSheet.create({
   },
   stickerChooser: {
     backgroundColor: '#e9ebee',
+    width: Dimensions.get('window').width,
   },
   stickerPage: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     padding: 20,
   },
   rowContainer: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     flex: 1,
   },
   sticker: {
     height: 100,
     width: 100,
-    marginRight: 12,
+    marginBottom: 12,
   },
 });
 

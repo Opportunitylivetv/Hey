@@ -17,6 +17,14 @@ class Feel {
     return new Feel(saved.time, saved.text, saved.stickerName);
   }
 
+  toObj(): Object {
+    return {
+      time: this.time,
+      text: this.text,
+      stickerName: this.stickerName,
+    };
+  }
+
   getKey(): string {
     return this.stickerName + this.text + this.time;
   }

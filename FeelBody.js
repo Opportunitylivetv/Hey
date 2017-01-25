@@ -7,10 +7,13 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity,
 } from 'react-native';
 
+const Actions = require('./Actions');
 const Sizes = require('./Sizes');
 const Colors = require('./Colors');
+const Store = require('./Store');
 
 import Feel from './Feel';
 
@@ -29,9 +32,23 @@ class FeelBody extends Component<void, Props, void> {
     }
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>
-          {feel.text}
-        </Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>
+            {feel.text}
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => Store.dispatch({
+            type: Actions.REMOVE_FEEL,
+            feelObj: feel.toObj(),
+          })}>
+          <View style={styles.deleteButton}>
+            <Text style={styles.deleteText}>
+              forget
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -42,12 +59,30 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 40,
   },
+  buttonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 20,
+    left: 0,
+    right: 0,
+  },
   text: {
     color: Colors.headerBorder,
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: -40,
-  }
+  },
+  deleteButton: {
+    backgroundColor: '#666',
+    paddingHorizontal: 20,
+    paddingVertical: 4,
+    borderRadius: 5,
+  },
+  deleteText: {
+    color: '#EEE',
+    lineHeight: 20,
+  },
 });
 
 module.exports = FeelBody;

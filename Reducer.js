@@ -23,5 +23,13 @@ module.exports = (state: State, action: Object) => {
           stickerName: action.sticker.getName(),
         }]),
       };
+    case Actions.REMOVE_FEEL:
+
+      return {
+        ...state,
+        feels: state.feels.filter(
+          feel => JSON.stringify(feel) !== JSON.stringify(action.feelObj),
+        ),
+      };
   }
 };

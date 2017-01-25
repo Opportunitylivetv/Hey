@@ -5,6 +5,7 @@
 const ACTIONS = {
   ADD_FEEL: 'ADD_FEEL',
   LOAD_STATE: 'LOAD_STATE',
+  REMOVE_FEEL: 'REMOVE_FEEL',
 };
 
 for (var key in ACTIONS) {
