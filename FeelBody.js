@@ -46,7 +46,6 @@ class FeelBody extends Component<void, Props, void> {
               'no going back...',
               [{
                 text: 'Nah',
-                
               }, {
                 text: 'OK',
                 onPress: () => {

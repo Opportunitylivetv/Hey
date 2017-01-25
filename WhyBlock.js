@@ -73,7 +73,7 @@ class WhyBlock extends Component<void, Props, State> {
             onPress={() => this.props.onCompose(this.state.text)}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>
-                {this.state.text ? 'enter' : 'bbl'}
+                {this.state.text ? 'k' : 'bbl'}
               </Text>
             </View>
           </TouchableOpacity>
