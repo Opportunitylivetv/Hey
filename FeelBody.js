@@ -8,6 +8,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 const Actions = require('./Actions');
@@ -39,10 +40,25 @@ class FeelBody extends Component<void, Props, void> {
         </View>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => Store.dispatch({
-            type: Actions.REMOVE_FEEL,
-            feelObj: feel.toObj(),
-          })}>
+          onPress={() => {
+            Alert.alert(
+              'Delete feel?',
+              'no going back...',
+              [{
+                text: 'Nah',
+              }, {
+                text: 'OK',
+                onPress: () => {
+                  Store.dispatch({
+                    type: Actions.REMOVE_FEEL,
+                    feelObj: feel.toObj(),
+                  });
+                },
+
+              }]
+            );
+
+          }}>
           <View style={styles.deleteButton}>
             <Text style={styles.deleteText}>
               forget
