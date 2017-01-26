@@ -52,7 +52,7 @@ class PreviousFeels extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingLeft: Dimensions.get('window').width / 4 - Sizes.HEADER_CIRCLE / 2,
+    paddingLeft: Sizes.COMPOSER_HORIZONTAL_PADDING,
   },
   feelContainer: {
     marginRight: Sizes.FEEL_SPACING - Sizes.HEADER_CIRCLE,

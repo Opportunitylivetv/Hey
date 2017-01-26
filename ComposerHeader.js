@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   container: {
-    marginRight: Dimensions.get('window').width / 4 - Sizes.HEADER_CIRCLE / 2,
+    marginRight: Sizes.COMPOSER_HORIZONTAL_PADDING,
   },
 });
 

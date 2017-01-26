@@ -44,9 +44,9 @@ class ComposerRow extends Component<void, Props, void> {
         contentContainerStyle={styles.contentContainer}
         ref={this.setScrollRef}
         showsHorizontalScrollIndicator={false}
-        pagingEnabled={true}
-        scrollEventThrottle={16}
+        scrollEventThrottle={32}
         onMomentumScrollEnd={this.handleScroll}
+        onScroll={this.handleScroll}
         horizontal={true}>
         <View
           onLayout={this.onContentLayout}
@@ -84,12 +84,13 @@ class ComposerRow extends Component<void, Props, void> {
 
   handleScroll = (event: Object) => {
     const nativeEvent = event.nativeEvent;
-    const scrollWidth = nativeEvent.layoutMeasurement.width;
-    const innerScrollWidth = nativeEvent.contentSize.width;
-    const horizontalPages = Math.floor(innerScrollWidth / scrollWidth);
+    // We divide this by two since our pages are half the screen width
+    const pageWidth = nativeEvent.layoutMeasurement.width / 2;
+    const innerScrollWidth = nativeEvent.contentSize.width - Sizes.COMPOSER_HORIZONTAL_PADDING;
+    const horizontalPages = Math.floor(innerScrollWidth / pageWidth);
     const page = Math.min(
       Math.max(
-        Math.floor(nativeEvent.contentOffset.x / scrollWidth + 0.5),
+        Math.floor(nativeEvent.contentOffset.x / pageWidth + 0.5),
         0,
       ),
       horizontalPages,
@@ -124,7 +125,7 @@ class ComposerRow extends Component<void, Props, void> {
       return;
     }
     this._scroll.scrollTo({
-      x: this._scrollWidth - Dimensions.get('window').width / 2,
+      x: this._scrollWidth - Dimensions.get('window').width,
       y: 0,
       animated: true,
     });
@@ -133,8 +134,7 @@ class ComposerRow extends Component<void, Props, void> {
 
 const styles = StyleSheet.create({
   scroll: {
-    width: Dimensions.get('window').width / 2,
-    overflow: 'visible',
+    width: Dimensions.get('window').width,
     maxHeight: SIZE,
     height: SIZE,
     marginBottom: -100,

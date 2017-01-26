@@ -67,7 +67,10 @@ class StickerPicker extends Component<void, PickerProps, void> {
         <ScrollView
           contentContainerStyle={{alignItems: 'center'}}
           style={styles.stickerChooser}>
-          <View style={styles.rowContainer}>
+          <View style={[
+              styles.rowContainer,
+              this.props.opened ? null : styles.invisible,
+            ]}>
             <StickerRow
               onStickerPress={this.props.onStickerPress}
               stickers={row1}
@@ -86,7 +89,9 @@ class StickerPicker extends Component<void, PickerProps, void> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
+  },
+  invisible: {
+    opacity: 0,
   },
   closed: {
     flex: 0,
