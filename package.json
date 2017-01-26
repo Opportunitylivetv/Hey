@@ -8,6 +8,7 @@
 	},
 	"dependencies": {
 		"dateformat": "^2.0.0",
+		"firebase": "^3.6.7",
 		"react": "~15.4.0-rc.4",
 		"react-native": "0.40.0",
 		"redux": "^3.6.0"

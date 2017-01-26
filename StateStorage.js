@@ -5,6 +5,7 @@
 import {
   AsyncStorage,
 } from 'react-native';
+import * as firebase from 'firebase';
 
 const Actions = require('./Actions');
 const Store = require('./Store');
@@ -12,6 +13,21 @@ const Store = require('./Store');
 const STATE_KEY = 'heyState';
 
 let _lastSaved = null;
+
+// Initialize Firebase
+const config = {
+  apiKey: require('./FirebaseAuthKey'),
+  authDomain: "heystore-a3231.firebaseapp.com",
+  databaseURL: "https://heystore-a3231.firebaseio.com",
+  storageBucket: "heystore-a3231.appspot.com",
+  messagingSenderId: "434696144316"
+};
+firebase.initializeApp(config);
+
+const savedStateRef = firebase.database().ref('savedUsers');
+savedStateRef.on('value', (data) => {
+  console.log(data.val());
+});
 
 class StateSaver {
 
